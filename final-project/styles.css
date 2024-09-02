@@ -124,11 +124,12 @@ button {
   background-color: #3882F6;
   color: #F9FAF8;
   width: 100px;
-  height: 30px
+  height: 30px;
+  border-radius: 5px;
+  border: 0;
 }
 
 .end-button {
-  border-radius: 5px;
   border: 2px solid #F9FAF8;
 }
 
