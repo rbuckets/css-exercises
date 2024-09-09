@@ -1,5 +1,37 @@
-let humanScore = 0
-let computerScore = 0
+let humanRoundScore = 0
+let computerRoundScore = 0
+
+const humanScore = document.querySelector(".score-human span")
+humanScore.textContent = humanRoundScore
+const computerScore = document.querySelector(".score-computer span")
+computerScore.textContent = computerRoundScore
+
+const roundResult = document.querySelector(".round-result")
+const selections = document.querySelector(".selections")
+const restart = document.querySelector("#restart")
+const score = document.querySelector(".score")
+
+function getHumanChoice(event) {
+  if (humanRoundScore < 5 && computerRoundScore < 5) {
+    let target = event.target;
+    let humanChoice;
+
+    switch (target.id) {
+      case 'rock':
+        humanChoice = "rock";
+        break;
+      case 'paper':
+        humanChoice = "paper";
+        break;
+      case 'scissors':
+        humanChoice = "scissors";
+        break;
+    }
+
+    computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+  }
+}
 
 function getComputerChoice() {
   const num = Math.random()
@@ -13,61 +45,70 @@ function getComputerChoice() {
   }
 }
 
-function getHumanChoice() {
-  let humanInput = prompt("Please enter your choice:")
+function incrementComputerScore(humanChoice, computerChoice) {
+  computerRoundScore++;
+  computerScore.textContent = computerRoundScore;
+  if (computerRoundScore == 5) {
+    computerScore.style.color = "blue";
+    return `${computerChoice} beats ${humanChoice}. You lose the game!`;
+  } else {
+    return `${computerChoice} beats ${humanChoice}. You lose the round.`;
+  }
+}
 
-  return humanInput.toLowerCase().trim()
+function incrementHumanScore(humanChoice, computerChoice) {
+  humanRoundScore++;
+  humanScore.textContent = humanRoundScore;
+  if (humanRoundScore == 5) {
+    humanScore.style.color = "blue";
+    return `${humanChoice} beats ${computerChoice}. You win the game!`;
+  } else {
+    return `${humanChoice} beats ${computerChoice}. You win the round.`;
+  }
 }
 
 function playRound(humanChoice, computerChoice) {
+  let result;
   if (humanChoice == "rock") {
     if (computerChoice == "paper") {
-      computerScore++;
-      console.log("You lose! Paper beats Rock");
+      result = incrementComputerScore("Rock", "Paper");
     } else if (computerChoice == "scissors") {
-      humanScore++;
-      console.log("You win! Rock beats Scissors");
+      result = incrementHumanScore("Rock", "Scissors");
     } else {
-      console.log("It's a tie!")
+      result = "It's a tie!";
     }
   } else if (humanChoice == "paper") {
     if (computerChoice == "scissors") {
-      computerScore++;
-      console.log("You lose! Scissors beats Paper");
+      result = incrementComputerScore("Paper", "Scissors");
     } else if (computerChoice == "rock") {
-      humanScore++;
-      console.log("You win! Paper beats Rock");
+      result = incrementHumanScore("Paper", "Rock");
     } else {
-      console.log("It's a tie!")
+      result = "It's a tie!";
     }
   } else if (humanChoice == "scissors") {
     if (computerChoice == "rock") {
-      computerScore++;
-      console.log("You lose! Rock beats Scissors");
+      result = incrementComputerScore("Scissors", "Rock");
     } else if (computerChoice == "paper") {
-      humanScore++;
-      console.log("You win! Scissors beats Paper");
+      result = incrementHumanScore("Scissors", "Paper");
     } else {
-      console.log("It's a tie!")
+      result = "It's a tie!";
     }
   }
+
+  roundResult.textContent = result;
 }
 
-function playGame() {
-
-  for(let i = 0; i < 5; i++) {
-    let humanChoice = getHumanChoice()
-    let computerChoice = getComputerChoice()
-    playRound(humanChoice, computerChoice)
-  }
-
-  if (humanScore > computerScore) {
-    console.log("You won the game!")
-  } else if (humanScore < computerScore) {
-    console.log("You lost the game!")
-  } else {
-    console.log("It's a tie!")
-  }
+function reset() {
+  humanRoundScore = 0;
+  computerRoundScore = 0;
+  humanScore.style.color = "black";
+  computerScore.style.color = "black";
+  humanScore.textContent = humanRoundScore;
+  computerScore.textContent = computerRoundScore;
+  roundResult.textContent = "";
 }
 
-playGame()
+selections.addEventListener("click", getHumanChoice);
+restart.addEventListener("click", reset);
+reset();
+

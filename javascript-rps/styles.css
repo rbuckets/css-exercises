@@ -1,0 +1,62 @@
+.highlight {
+  color: white;
+  background-color: black;
+  padding: 10px;
+  width: 250px;
+  text-align: center;
+}
+
+h1 {
+  background-color: #3c93c2;
+  margin: 0;
+  padding: 10px;
+}
+
+body {
+  margin: 0;
+}
+
+.selections {
+  margin: 20px 0;
+}
+
+.score {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20%;
+}
+
+.selections {
+  display: flex;
+  justify-content: center;
+  gap: 20%;
+}
+
+.round-result{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+.selections button {
+  background-color: #3882F6;
+  color: #F9FAF8;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: 0;
+}
+
+.menu button {
+  background-color: #5533c7;
+  color: #F9FAF8;
+  width: 200px;
+  height: 40px;
+  border-radius: 5px;
+  border: 0;
+}
